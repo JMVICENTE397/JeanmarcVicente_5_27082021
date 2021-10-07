@@ -12,4 +12,11 @@ class Product {
         // Les 7 lignes du dessus peuvent s'écrire plus facilement avec la fonction assign() :
         // jsonArticle && Object.assign(this, jsonArticle); 
     }
+
+    // Créer une méthode pour afficher les montants en devise.
+
+}
+
+class ProductBasketGroupBy {
+
 }

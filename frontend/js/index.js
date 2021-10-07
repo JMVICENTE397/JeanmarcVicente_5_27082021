@@ -1,33 +1,45 @@
 // Déclaration et affectation de l'URL
 let url = "http://localhost:3000/api/teddies";
 
+class Product {
+    constructor(jsonProduct) {
+        // La fonction assign permet de récupérer toutes les propriétés des objets contenus dans le fichier JSON.
+        jsonProduct && Object.assign(this, jsonProduct); 
+    }
+}
+
 // let productNumber = localStorage.length;
 // alert(productNumber);
 // document.querySelector('.badge').innerText = productNumber;
 
-async function displayList() {
-    let response = await fetch(url)
-    // On attend le résultat du fetch avec async et await avant de poursuivre
+main();
 
-    .then(async function(response){
-        let products = await response.json()
-        // On attend le retour des données au format json avec async et await avant de poursuivre
+function main() {
+    loadBasketCount();
+    displayList();
+}
 
+
+function displayList() {
+    fetch(url)
+    // Formatage de la réponse au format json
+    .then(response => response.json())
+    // Traitement des données
+    .then(products => {
         // On affiche les données dans la console
-        console.log(products)
-
+        console.log("Données chargées depuis l'API :", products)
         // Boucle pour afficher les produits dans la page html
-        for (product of products) {
-
-            // Conversion et affichage du prix en euros dans la console
+        for (let product of products) {
+            // On convertit le prix en euro (qui est stocké en centimes d'euro)
             product.price = product.price/100;
-            // console.log(new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(product.price));
+            // On formate et on affiche le prix avec un constructeur qui prend en compte les paramètres locaux
+            // Utilisation des backticks qui permettent de faire du texte multiligne
             const listStructure =
-                `<tr class="justify-content-end">
+                `<tr class="justify-content-center">
                     <th><img src="${product.imageUrl}" height=50px></th>
-                    <th class="align-middle">${product.name}</th>
-                    <th class="align-middle text-right">${product.price.innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(product.price)}</th>
-                    <th class="align-middle text-right"><a href="product.html?id=${product._id}" type="button" class="btn btn-primary">Voir article</a></th>
+                    <th class="align-middle text-start fw-normal">${product.name}</th>
+                    <th class="align-middle text-end fw-normal">${new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(product.price)}</th>
+                    <th class="align-middle text-end pe-3"><a href="product.html?id=${product._id}" type="button" class="btn btn-primary">Voir article</a></th>
                 </tr>`
             // Injection du HTML
             document.getElementById('list').innerHTML += listStructure
@@ -35,38 +47,6 @@ async function displayList() {
     })
     
     // On affiche l'erreur en JS
-    .catch(function(error){
-        alert(error);
-    })
+    .catch(function(error){alert(error);})
 }
-
-// const displayList = async function() {
-//     try {
-//         // On récupère les données du serveur
-//         let response = await fetch(url)
-//             if (response.ok) {
-//                 let products = await response.json()
-//                 console.log(products)
-//                 // Boucle qui affiche les articles
-//                 for (product of products) {
-//                     // Conversion du prix en euros
-//                     product.price = product.price/100;
-//                     console.log(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price));
-//                     document.getElementById('list').innerHTML +=`<tr class="justify-content-end">
-//                                                                         <th><img src="${product.imageUrl}" height=50px></th>
-//                                                                         <th class="align-middle">${product.name}</th>
-//                                                                         <th class="align-middle text-right">${product.price.innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(product.price)}</th>
-//                                                                         <th class="align-middle text-right"><a href="product.html?id=${product._id}" type="button" class="btn btn-primary">Voir article</a></th>
-//                                                                     </tr>`
-//                 }
-//             }else {
-//                 console.error('Retour du serveur : ', response.status)
-//             } 
-//         }
-//     catch (e) {
-//         console.error(e)
-//     }
-//     console.log(localStorage)
-// }
         
-displayList()
