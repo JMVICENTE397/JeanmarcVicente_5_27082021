@@ -22,7 +22,7 @@
                     <a class="navbar-brand" href="index.html">
                         <h1><img src="images/logo.png" height="60" alt="ORINOCO"></h1>
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div id="navbarContent" class="collapse navbar-collapse justify-content-end">
@@ -31,7 +31,7 @@
                                 <a class="nav-link" href="index.html">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="basket.html">Panier<span class="badge rounded-pill bg-danger ms-3"></span></a>
+                                <a class="nav-link" href="basket.html">Panier<span class="badge rounded-pill bg-danger ms-2"></span></a>
                             </li>
                         </ul>
                     </div>
@@ -43,9 +43,11 @@
     <main>
         <section class="container mt-5">
             <h2>Articles disponibles</h2>
-            <table class="table table-hover mt-5 shadow p-3 mb-5">
-                <tbody id="list" class="align-bottom"></tbody>
-            </table>
+            <div class="border shadow rounded-3 mt-4">
+                <table class="table table-hover m-0">
+                    <tbody id="list" class="align-bottom"></tbody>
+                </table>
+            </div>
         </section>
     </main>
 

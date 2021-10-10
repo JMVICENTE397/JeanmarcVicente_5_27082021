@@ -22,7 +22,7 @@
                     <a class="navbar-brand" href="index.html">
                         <h1><img src="images/logo.png" height="60" alt="ORINOCO"></h1>
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div id="navbarContent" class="collapse navbar-collapse justify-content-end">
@@ -31,7 +31,7 @@
                                 <a class="nav-link" href="index.html">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="basket.html">Panier<span class="badge rounded-pill bg-danger ms-3"></span></a>
+                                <a class="nav-link" href="basket.html">Panier<span class="badge rounded-pill bg-danger ms-2"></span></a>
                             </li>
                         </ul>
                     </div>
@@ -43,18 +43,7 @@
     <main>
         <section class="container mt-5">
             <h2>Articles dans le panier</h2>
-            <table class="table table-bordered table-hover mt-5 shadow">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-start">Nom</th>
-                        <th scope="col" class="text-start">Couleur</th>
-                        <th scope="col" class="text-end">Prix Unitaire</th>
-                        <th scope="col" class="text-end">Quantité</th>
-                        <th scope="col" class="text-end">Total</th>
-                    </tr>
-                </thead>
-                <tbody id="basket"></tbody>
-            </table>
+            <div id="basket" class="mt-4"></div>
         </section>
     </main>
 
