@@ -33,7 +33,7 @@ if (localStorage.getItem("basket") === null) {
     <div class="col mt-4">
         <a href="index.html" type="button" class="btn btn-primary me-3 mb-3">Continuer vos achats</a>    
         <button id="emptyBasketBtn" type="button" class="btn btn-primary me-3 mb-3">Vider le panier</button>
-        <a href="command.html" type="button" class="btn btn-primary me-3 mb-3">Commander</a>
+        <button id="displayFormBtn" type="button" class="btn btn-primary me-3 mb-3">Commander</button>
     </div>`
     document.getElementById('basket').innerHTML = basketStructure
     for (let product of arrayBasket) {
@@ -51,4 +51,5 @@ if (localStorage.getItem("basket") === null) {
     }
     document.querySelector('#toPay').textContent = new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(totalToPay);
     emptyBasket();
+    displayForm();
 }

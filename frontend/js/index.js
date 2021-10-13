@@ -21,7 +21,7 @@ fetch(url)
                     <th><img src="${product.imageUrl}" height=50px></th>
                     <th class="align-middle text-start fw-normal">${product.name}</th>
                     <th class="align-middle text-end fw-normal">${new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(product.price/100)}</th>
-                    <th class="align-middle text-end"><a href="product.html?id=${product._id}" type="button" class="btn btn-primary me-2">Voir article</a></th>
+                    <th class="align-middle text-end"><a href="product.html?id=${product._id}" type="button" class="btn btn-primary me-2">Voir</a></th>
                 </tr>`;
             // Injection du HTML
             document.getElementById('list').innerHTML += listStructure;
