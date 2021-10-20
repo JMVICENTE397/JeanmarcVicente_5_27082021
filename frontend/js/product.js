@@ -15,10 +15,10 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
         // Structure HTML
         const productStructure =
             `<div class="row g-0">
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <img src="${product.imageUrl}" class="img-fluid rounded-start" alt="${product.name}">
                 </div>
-                <div class="col-md-6 ps-3">
+                <div class="col-lg-6">
                     <div class="card-body">
                         <h3 id="product__name" class="card-title">${product.name}</h3>
                         <h4 id="product__price" class="card-subtitle mb-2 text-muted"><span>${new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(product.price/100)}</span></h4>
@@ -40,8 +40,25 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
                             </div>
                         </div>
                         <div class="col">
-                            <button id="addBasketBtn" type="button" class="btn btn-primary me-3 mb-3">Ajouter au panier</button>
-                            <a href="index.html" type="button" class="btn btn-primary me-3 mb-3">Retour à la liste</a>
+                            <button id="addBasketBtn" type="button" class="btn btn-primary me-3 mb-3" data-bs-toggle="modal" data-bs-target="#confirmation">Ajouter au panier</button>
+                            <a href="index.html" type="button" class="btn btn-primary me-3 mb-3">Retourner à la liste</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="confirmation" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Cet article a été ajouté à votre panier.
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" href="index.html" class="btn btn-primary">Continuer vos achats</a>
+                            <a type="button" href="basket.html" class="btn btn-secondary">Aller au panier</a>
                         </div>
                     </div>
                 </div>

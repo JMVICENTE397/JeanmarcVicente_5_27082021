@@ -1,7 +1,7 @@
 loadBasketCount();
 
 if (localStorage.getItem("basket") === null) {
-    document.getElementById('basket').innerHTML = `<p class="shadow alert alert-danger">Votre panier est vide.</p>`;
+    document.getElementById('basket').innerHTML = `<p class="alert alert-danger">Votre panier est vide.</p>`;
 } else {
     // Création d'un tableau pour recevoir les produits du local storage
     let arrayBasket = [];
@@ -12,7 +12,7 @@ if (localStorage.getItem("basket") === null) {
     console.log("Contenu du panier après chargement",arrayBasket);
     console.log("Premier produit du panier",arrayBasket[0]);
     const basketStructure =
-        `<table class="table table-bordered table-hover shadow">
+        `<table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th scope="col" class="text-start">Nom</th>

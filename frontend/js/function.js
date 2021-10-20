@@ -24,7 +24,7 @@ function addBasket() {
       if (localStorage.getItem("basket") !== null) {
           // Conversion du fichier JSON en objet JavaScript
           arrayBasket = JSON.parse(localStorage.getItem("basket"));
-          console.log("Panier avant ajout du nouveau produit :",arrayBasket);
+          console.log("Panier avant ajout du nouveau produit :", arrayBasket.value);
           // Boucle pour détecter si un couple (produit/couleur) existe dans le panier
           for (let product of arrayBasket){
               if (product._name === selectedProduct._name && product._color === selectedProduct._color) {
@@ -44,11 +44,11 @@ function addBasket() {
       // Conversion de l'objet JavaScript en fichier JSON
       localStorage.setItem("basket", JSON.stringify(arrayBasket));
       // Renvoi vers la page d'accueil
-      window.location.href="index.html";
-
+      // window.location.href = "index.html"
       // On appelle la fonction qui compte le nombre de produits dans le local storage
       basketCount();
-      popupRedirection();
+      // Fonction remplacée par un modal bootstrap
+      // popupRedirection();
   })
 }
 
@@ -137,7 +137,7 @@ function displayForm() {
           </div>
       </form>`
       document.getElementById('input').innerHTML = inputStructure;
-      validCommand();
+      validOrder();
   })
 }
 
@@ -166,7 +166,7 @@ function popupRedirection() {
   }
 }
 
-function validCommand() {
+function validOrder() {
   // Création de la constante form afin de pouvoir utiliser la notation dot
   const form = document.querySelector('#contactForm');
   // Ecoute de la saisie du nom
@@ -202,10 +202,68 @@ function validCommand() {
     // Désactivation du boutton
     e.preventDefault();
     if (checkLastName(form.lastName) && checkFirstName(form.firstName) && checkEmail(form.email) && checkPhone(form.phone) && checkAddress(form.address) && checkZip(form.zip) && checkCity(form.city)) {
-      // console.log('Saisie validée');
-      window.location.href = "command.html";
+      console.log('Saisie validée');
+      // let contact = ('a','b','c','d','e');
+      // let contact = new Contact(form.firstName.value, form.lastName.value, form.address.value, form.city.value, form.email.value);
+      // console.log(contact);
+      // window.location.href = "order.html";
+      let basket = JSON.parse(localStorage.getItem("basket"));
+      console.log(basket);
+      // for (let product of basket) {
+      //   delete product._name;
+      //   delete product._price;
+      //   delete product._color;
+      //   delete product._quantity;
+      //   product.id = product._id;
+      //   delete product._id;
+      // }
+      // console.log(basket);
+      let products = [];
+      for (let product of basket) {
+        products.push(product._id);
+      }
+      console.log(products);
+      const order = {
+        contact : {
+            firstName: form.firstName.value,
+            lastName: form.lastName.value,
+            address: form.address.value,
+            city: form.city.value,
+            email: form.email.value
+        },
+        products: products
+            // ["5be9c8541c9d440000665243","5beaabe91c9d440000a57d96"]
+      };
+       console.log(order);
+       localStorage.setItem("order", JSON.stringify(order));
+       localStorage.setItem("orderTotal", document.querySelector('#toPay').textContent);
+       localStorage.removeItem('basket');
+       localStorage.removeItem('basketCount');
+       window.location.href = "order.html";
+      // sendOrder();
+  //     fetch("http://localhost:3000/api/teddies/order", {
+  //   method: "POST",
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-type': 'application/json'
+  //   },
+  //   body: JSON.stringify(order)
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     // localStorage.clear();
+  //     console.log(data)
+  //     // localStorage.setItem("orderId", data.orderId);
+  //     // localStorage.setItem("total", priceConfirmation[1]);
+
+  //     //  On peut commenter cette ligne pour vérifier le statut 201 de la requête fetch. Le fait de préciser la destination du lien ici et non dans la balise <a> du HTML permet d'avoir le temps de placer les éléments comme l'orderId dans le localStorage avant le changement de page.
+  //     // document.location.href = "confirmation.html";
+  //   })
+  //   .catch((err) => {
+  //     alert("Il y a eu une erreur : " + err);
+  //   });
     } else {
-      // console.log('Saisie non validée');
+      console.log('Saisie non validée');
     }
   });
   // Validation du nom
