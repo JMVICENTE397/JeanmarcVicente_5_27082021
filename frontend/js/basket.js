@@ -1,16 +1,19 @@
+// Appel de la fonction qui affiche le nombre d'articles dans le panier
 loadBasketCount();
 
-if (localStorage.getItem("basket") === null) {
+// Affichage d'un message si le panier est vide
+if (localStorage.getItem('basket') === null) {
     document.getElementById('basket').innerHTML = `<p class="alert alert-danger">Votre panier est vide.</p>`;
+// Affichage d'un tableau si lee panier n'est pas vide
 } else {
-    // Création d'un tableau pour recevoir les produits du local storage
-    let arrayBasket = [];
-    // Création d'une variable pour calculer le total à payer
+    // Initialisation d'une variable pour calculer le total à payer
     let totalToPay = 0;
-    console.log("Contenu du panier avant chargement",arrayBasket);
-    arrayBasket = JSON.parse(localStorage.getItem('basket'));
-    console.log("Contenu du panier après chargement",arrayBasket);
-    console.log("Premier produit du panier",arrayBasket[0]);
+    // Chargement du panier au format JS
+    let arrayBasket = JSON.parse(localStorage.getItem('basket'));
+    // Contrôles des données en console
+    console.log("Contenu du panier :",arrayBasket);
+    console.log("Premier produit du panier :",arrayBasket[0]);
+    // Structure HTML du tableau avec Bootstrap
     const basketStructure =
         `<table class="table table-bordered table-hover">
         <thead>
@@ -35,8 +38,11 @@ if (localStorage.getItem("basket") === null) {
         <button id="emptyBasketBtn" type="button" class="btn btn-primary me-3 mb-3">Vider le panier</button>
         <button id="displayFormBtn" type="button" class="btn btn-primary me-3 mb-3">Commander</button>
     </div>`
+    // Injection du HTML
     document.getElementById('basket').innerHTML = basketStructure
-    for (let product of arrayBasket) {
+    // Boucle FOREACH pour afficher chaque produit et calculer lle total à payer par incrémentation
+    arrayBasket.forEach(product => {
+        // Structure HTML des lignes d'articles (avec Bootstrap)
         const rowStructure =
             `<tr>
                 <td class="align-middle text-start">${product._name}</td>
@@ -45,10 +51,14 @@ if (localStorage.getItem("basket") === null) {
                 <td class="align-middle text-end">${product._quantity}</td>
                 <td class="align-middle text-end">${new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format((product._price)*(product._quantity))}</td>
             </tr>`
+        // Injection du HTML
         document.getElementById('row').innerHTML += rowStructure
+        // Calcul du total à payer
         totalToPay += product._quantity * product._price;
-        console.log(totalToPay);
-    }
+        // Contrôle du calcul en console
+        console.log("Incrémentation du total à payer :", totalToPay);
+    });
+    // Injection du total à payer
     document.querySelector('#toPay').textContent = new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(totalToPay);
     emptyBasket();
     displayForm();

@@ -1,18 +1,20 @@
+// Appel de la fonction qui affiche le nombre d'articles dans le panier
 loadBasketCount();
 
-// Récupération de l'id dans l'URL
+// Récupération de l'ID dans l'URL
 let params = new URL(document.location).searchParams;
 const id = params.get("id");
 
-// Chargement des données depuis l'API
+// Chargement des données du produit de l'API avec la méthode fetch
 fetch(`http://localhost:3000/api/teddies/${id}`)
     // Formatage de la réponse au format JSON
     .then(response => response.json())
     // Traitement des données récupérées
     .then(product => {
-        // Test pour vérifier le contenu et le format des données récupérées
-        console.log("Article sélectionné :",product);
-        // Structure HTML
+        // Contrôle des données en console
+        console.log("Données du produit sélectionné chargées depuis l'API :",product);
+        // Structure HTML avec Bootstrap
+        // Utilisation d'un modal)
         const productStructure =
             `<div class="row g-0">
                 <div class="col-lg-6">
@@ -66,8 +68,10 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
         // Injection du HTML
         document.getElementById('product').innerHTML = productStructure;
         // On crée une boucle pour récupérer les couleurs
+        // Les boucles FOR OF permettent d'itérer à l'interieur d'un tableau
+        // Les boucles FOR IN permettent d'itérer à l'intérieur d'un objet
         for (let color of product.colors) {
-            // Création de la structure HTML pour les couleurs qui sera imbriquée dans la structure du produit
+            // Structure HTML pour les couleurs imbriquée dans la structure produit
             const optionStructure =
                 `<option id="product__color" value="${color}">${color}</option>`
             // Injection du HTML
@@ -76,7 +80,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
         // Appel de la fonction "Ajout au panier"
         addBasket();
     })
-    // Capture de l'erreur en console et avec une fenêtre popup
+    // Gestion des erreurs
     .catch((error) => {
         console.log(error);
         alert("Vous n'êtes pas connecté au serveur.",error);
